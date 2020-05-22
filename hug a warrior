@@ -1,0 +1,56 @@
+
+names =[]
+target = []
+
+num =int(input("how many contenders are there"))
+for i in range(num):
+  namelist=input("who is contender number " + str(i+1))
+  #names[i]=namelist
+  names.insert(i,namelist)
+
+for i in range(num):
+  if i+1 ==num:
+    target.insert(i,names[0])
+    print names[i]+'\'s target is ' +target[num-1]
+
+  if i +1 != num:
+    target.insert(i,names[i+1])
+    print names[i]+'\'s target is ' +target[i]
+
+
+for i in range(num):
+  out = input("who got their target out?")
+  def sequentialSearch(names, out):
+    counter = 0
+    for i in names:
+      if i == out:
+        return counter 
+      counter = counter + 1
+    if i != out :
+      return -1
+  
+  result = sequentialSearch(names, out)
+  result = int(result)
+  
+  if result>-1:
+    who = sequentialSearch(names,target[result])
+    print(str(out)+" just got "+str(target[result])+" out")
+    print(str(out)+'\'s new target is ' + str(target[who]))
+  if result == len(names):
+    save = target[result]
+    target[result]= target[who]
+    target[who]=save
+    names.remove(target[who])
+    target.remove(target[who])
+    print target
+  else:
+    names.remove(target[result])
+    target.remove(target[result])
+  if len(names) ==1:
+    print (str(names[0])+" is the last person, they win!")
+  if result == who:
+    for i in range(num):
+      names[result+i+1] = names[result+i+2]
+      target[result+i] = target[result+i+1]
+
+    
